@@ -55,7 +55,7 @@ module.exports= {
                     });
                     return;
                 }
-                const token = await jwt.create({id:user._id});
+                const token = await jwt.create({id:user._id, username :user.username});
                 res.cookie('auth-cookie',token);
                 res.redirect('/');
                 

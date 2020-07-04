@@ -10,4 +10,5 @@ module.exports= (app) => {
     app.set('views','views')
     app.engine('.hbs', handlebars({ extname :'.hbs'}));
 
+
 }
