@@ -1,11 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>{{pageTitle}}</title>
+    <link rel="stylesheet" href="/css/site.css">
 </head>
+
 <body>
-    {{{body}}}
+    <div>
+        <aside>
+            <div class="center">
+                <img class="logo" src="/img/logo.png" alt="logo">
+            </div>
+
+            <nav>
+                <a href="/">Main Page</a>
+                <a href="">All Articles</a>
+                <form>
+                    <input type="text" style="width: 100%;">
+                    <input type="submit" value="Search">
+                </form>
+                <a href="">Create New Article</a>
+            </nav>
+        </aside>
+        <div id="container">
+            <header>
+                {{#if isLoggedIn}}
+                <a href="/">Home |</a>
+                <span>| Welcome, {{username}}! |</span>
+                <a href="/user/logout">| Logout |</a>
+                {{else}}
+                <a href="/user/login">| Login |</a>
+                <a href="/user/register">| Register |</a>
+                {{/if}}
+            </header>
+            <main>
+                <h1>Welcome to SoftUni Wiki!</h1>
+                {{#if message}}
+                <section id="notifications">
+                    <p>{{message}}</p>
+                </section>
+                {{/if}}
+                {{{body}}}
+            </main>
+            <footer>
+                SoftUni Wiki &copy; 2020
+            </footer>
+        </div>
+    </div>
 </body>
+
 </html>
