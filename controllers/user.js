@@ -1,5 +1,6 @@
 const User = require('../models/User');
-const jwt = require('../utils/jwt')
+const jwt = require('../utils/jwt');
+const renderMessage = require('../utils/error-handler');
 module.exports= {
 
     get : {
@@ -22,15 +23,10 @@ module.exports= {
                  message:"Password and repeat password don't match!"} );return;
                 }
                 try {
-                    const user = await User.findOne({username});
-                    if(user) {
-                        res.render('user/register.hbs',{pageTitle : "Register Page",
-                        message:"Username is already taken!"} );return;
-                    }
                     await User.create({username,password});
                     res.status(201).redirect('/user/login');
                 } catch (error) {
-                    next(error)
+                    renderMessage(error,res,"user/register.hbs",{username,password,pageTitle : "Register Page"},next);
                 }
         },
        async login(req,res,next){
@@ -60,7 +56,7 @@ module.exports= {
                 res.redirect('/');
                 
             } catch (error) {
-                next(error)
+                next();
             }
 
            }

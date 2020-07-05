@@ -1,5 +1,6 @@
 const Article = require("../models/Article");
 const User = require("../models/User");
+const renderMessage = require('../utils/error-handler');
 
 module.exports = {
   get: {
@@ -46,7 +47,7 @@ module.exports = {
         const username= req.user? req.user.username: undefined;
         try {
             const article = await Article.findById(articleId).lean();
-            res.render('article/edit.hbs',{pageTitle:"Edit Article Page",username, isLoggedIn : !!username, ...article})
+            res.render('article/edit.hbs',{pageTitle:"Edit Article Page",username, isLoggedIn : !!username, ...article,articleId})
         } catch (error) {
             next(error);
         }
@@ -71,31 +72,28 @@ module.exports = {
   post: {
     async create(req, res, next) {
         const {title, description}= req.body;
+        const username= req.user? req.user.username: undefined;
         try {
             const article = await Article.findOne({title});
-            const username= req.user? req.user.username: undefined;
-            if(article) { res.render('article/create.hbs', {
-                    pageTitle:"Article Page",username, isLoggedIn : !!username,
-                    description,title,message:"Title is already taken!" });
-                     return;
-            }
             const createdArticle =await Article.create({title, description, author:req.user.id, createdAt :new Date().toLocaleString()});
             await User.findByIdAndUpdate(req.user.id, {$addToSet: { createdArticles: createdArticle._id }});
             res.status(201).redirect('/article/all');
             
         } catch (error) {
-            next(error);
+            renderMessage(error,res,"article/create.hbs",
+            { pageTitle:"Create Article Page",username, isLoggedIn : !!username,description,title } ,next);
         }
-
     },
     async edit (req,res,next){
         const { articleId }= req.params;
-        const {description}= req.body
+        const { description }= req.body
+        const username= req.user? req.user.username: undefined;
         try {
-            await Article.findByIdAndUpdate(articleId,{description});
+            await Article.findByIdAndUpdate(articleId,{description}, {runValidators :true});
             res.redirect(`/article/details/${articleId}`);
         } catch (error) {
-            next(error);
+            renderMessage(error,res,"article/edit.hbs",
+            { pageTitle:"Edit Article Page",username, isLoggedIn : !!username,description, articleId} ,next);
         }
     }
   },
