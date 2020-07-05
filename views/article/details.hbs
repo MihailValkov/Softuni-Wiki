@@ -1,0 +1,20 @@
+<div class="spacer">
+    <h2>{{title}}
+        <div class="controls">
+            <a href="/article/edit/{{_id}}" style="color:green">[edit]</a>
+            {{#if isAuthor}}
+            <a href="/article/delete/{{_id}}" style="color:red" >[delete]</a>
+            {{/if}}
+        </div>
+    </h2>
+    <article>
+        {{#each description}}
+        <p> {{this}}</p>
+        {{/each}}
+    </article>
+    <div style="text-align: center;">
+    <p>{{createdAt}}</p>
+    <p>by {{author.username}}</p>
+    </div>
+
+</div>
