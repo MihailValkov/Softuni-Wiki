@@ -86,7 +86,7 @@ h2 {
 
 h3 {
     text-align: center;
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 section {
@@ -101,6 +101,7 @@ section {
 article {
   padding: 20px;
   display: inline-block;
+  word-break: break-word;
 }
 
 .controls {
@@ -153,7 +154,7 @@ textarea {
 
 .spacer {
   padding: 20px;
-  text-align: center;
+
 }
 
 h2 a {

@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  createdArticles: [{ type: ObjectId, ref: "Articles" }],
+  createdArticles: [{ type: ObjectId, ref: "Article" }],
 });
 
 userSchema.methods = {

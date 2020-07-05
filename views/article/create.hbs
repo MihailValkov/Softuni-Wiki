@@ -1,0 +1,12 @@
+<section>
+    <h2>Create new article</h2>
+    <div class="spacer">
+        <form action="/article/create" method="POST">
+            <label for="title">Article title</label>
+            <input type="text" class="title" id="title" name="title" value="{{title}}">
+            <label for="description">Content</label>
+            <textarea id="description" name="description">{{description}}</textarea>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</section>

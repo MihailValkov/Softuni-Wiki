@@ -16,12 +16,12 @@
 
             <nav>
                 <a href="/">Main Page</a>
-                <a href="">All Articles</a>
-                <form>
-                    <input type="text" style="width: 100%;">
+                <a href="/article/all">All Articles</a>
+                <form action="/article/search" method="GET">
+                    <input type="text" name="search" style="width: 100%;">
                     <input type="submit" value="Search">
                 </form>
-                <a href="">Create New Article</a>
+                <a href="/article/create">Create New Article</a>
             </nav>
         </aside>
         <div id="container">
