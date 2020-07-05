@@ -6,10 +6,17 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
+    validate: {
+      validator : (x)=> {
+        return /^[A-Za-z0-9-_]+$/.test(x)
+      },
+      message : () => 'Username should contain only English characters , numbers , "_" or "-" !'
+    }
   },
   password: {
     type: String,
     required: true,
+    minlength : [6 , "Password should be at least 6 characters long !"]
   },
   createdArticles: [{ type: ObjectId, ref: "Article" }],
 });
